@@ -7,15 +7,15 @@
   "type": "module",
   "main": "server.ts",
   "scripts": {
-    "dev":"tsx watch src/server.ts",
-    "build":"tsc",
+    "prisma": { "seed": "tsx ./prisma/seed.ts"},
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
-    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
@@ -26,9 +26,11 @@
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
+    "stripe": "^22.3.2",
     "undici-types": "^8.3.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",

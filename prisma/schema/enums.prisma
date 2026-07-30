@@ -9,7 +9,7 @@ enum UserStatus {
   BANNED
 }
 
-enum RequestStatus {
+enum RentalStatus {
   PENDING
   APPROVED
   REJECTED
