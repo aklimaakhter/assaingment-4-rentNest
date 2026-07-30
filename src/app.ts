@@ -23,22 +23,10 @@ app.get("/",(req:Request,res:Response)=>{
 
 app.use("/api/auth", authRoutes)
 
-app.use(globalErrorHandle)
+
 app.use(notFound)
+app.use(globalErrorHandle)
 
 
 export default app;
 
-
-
-
-
-
-
-
-
-
-
-
-
-// export default app;

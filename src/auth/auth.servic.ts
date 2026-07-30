@@ -1,10 +1,12 @@
+import { SignOptions } from "jsonwebtoken";
 import config from "../config";
 import { prisma } from "../lib/prisma";
-import { IUserRegistered } from "./auth.interface";
+import { jwtUtils } from "../utils/jwt";
+import { ILoginUser, IUserRegistered } from "./auth.interface";
 import * as bcrypt from "bcrypt";
 
 const userRegisterIntoDB = async (payload: IUserRegistered) => {
-    const { name, email, password, role} = payload
+    const { name, email, password, role } = payload
 
     const isUserExist = await prisma.user.findUnique({
         where: { email }
@@ -22,13 +24,13 @@ const userRegisterIntoDB = async (payload: IUserRegistered) => {
             email,
             password: hashPassword,
             role: role || "TENANT"
-            
-           
+
+
         }
 
     })
 
-    
+
 
     const user = await prisma.user.findUnique({
         where: {
@@ -43,6 +45,54 @@ const userRegisterIntoDB = async (payload: IUserRegistered) => {
     return user
 }
 
-export const authService={
-    userRegisterIntoDB
+const loginUserIntoDB = async (payload: ILoginUser) => {
+    const { email, password } = payload;
+
+    const user = await prisma.user.findUnique({
+        where: { email }
+
+    })
+
+    if (!user) {
+        throw new Error("User does not exist with this email!");
+    }
+
+    if (user.status === "BANNED") {
+        throw new Error("Your account has been banned by the administrator.");
+    }
+
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatched) {
+        throw new Error("Password incorrect")
+
+    }
+
+    const jwtPayload = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }
+    const accessToken = jwtUtils.createToken(jwtPayload, config.jwt_access_secret, {
+        expiresIn: config.jwt_access_expires_in
+    } as SignOptions);
+
+    const refreshToken = jwtUtils.createToken(jwtPayload, config.jwt_refresh_secret, {
+        expiresIn: config.jwt_refresh_expires_in
+    } as SignOptions)
+
+    return {
+        accessToken,
+        refreshToken
+        
+    }
+
 }
+
+
+export const authService = {
+    userRegisterIntoDB,
+    loginUserIntoDB,
+};
+
