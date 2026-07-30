@@ -3,16 +3,6 @@ import * as bcrypt from "bcrypt";
 import { prisma } from "../src/lib/prisma";
 import { PaymentProvider, PaymentStatus, RentalStatus, UserRole, UserStatus } from "../generated/prisma/enums";
 
-// ✅ Prisma v7-এর সঠিক Enums Import
-// import { 
-//   UserRole, 
-//   UserStatus, 
-//   RentalStatus, 
-//   PaymentProvider, 
-//   PaymentStatus 
-// } from "@prisma/client/enums";
-
-
 
 async function main() {
  
@@ -25,7 +15,7 @@ async function main() {
 
   const password = await bcrypt.hash("password123", 10);
 
-  // ২. ইউজার্স ক্রিয়েশন
+ 
   const [landlord1, landlord2, tenant1, tenant2, admin] = await Promise.all([
     prisma.user.create({
       data: {
@@ -76,7 +66,7 @@ async function main() {
 
   console.log("Created 5 users");
 
-  // ৩. ক্যাটাগরি ক্রিয়েশন
+  
   const categoriesToCreate = [
     { name: "Apartment" },
     { name: "Family House" },
@@ -91,7 +81,7 @@ async function main() {
 
   console.log(`Created ${categories.length} categories`);
 
-  // ৪. প্রোপার্টি ক্রিয়েশন
+ 
   const propertiesToCreate = [
     {
       title: "Luxury Apartment in Gulshan",
@@ -127,7 +117,7 @@ async function main() {
 
   console.log(`Created ${properties.length} properties`);
 
-  // ৫. রেন্টাল রিকোয়েস্ট ও পেমেন্ট ক্রিয়েশন
+
   const requestsToCreate = [
     {
       property: properties[0],
