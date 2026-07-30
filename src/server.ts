@@ -3,6 +3,8 @@ import config from "./config";
 import { prisma } from "./lib/prisma";
 
 
+
+
 const PORT = config.port;
 
 async function main() {
