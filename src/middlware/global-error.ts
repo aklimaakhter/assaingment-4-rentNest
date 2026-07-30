@@ -1,7 +1,9 @@
 import { ErrorRequestHandler } from "express";
-import { ZodError } from "zod";
+import { success, ZodError } from "zod";
 import { AppError } from "../utils/app-error";
 import { PrismaClientKnownRequestError } from "../../generated/prisma/internal/prismaNamespace";
+import { PrismaClientValidationError } from "@prisma/client/runtime/client";
+import config from "../config";
 
 
 export const globalErrorHandle: ErrorRequestHandler = (err, req, res, next) => {
@@ -31,6 +33,22 @@ export const globalErrorHandle: ErrorRequestHandler = (err, req, res, next) => {
                 message = "Database Error";
                 errorDetails = { code: err.code }
         }
+    } else if (err instanceof PrismaClientValidationError) {
+        statusCode = 400;
+        message = "Invalid query"
     }
+
+    if (statusCode === 500 && config.node_env === "production") {
+        errorDetails = null;
+    } else if (config.node_env !== "production" && err instanceof Error && errorDetails === null) {
+        errorDetails = { stack: err.stack }
+
+    }
+
+    res.status(statusCode).json({
+        success: false,
+        message,
+        errorDetails
+    })
 
 }

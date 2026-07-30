@@ -2,7 +2,9 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors"
 import config from "./config";
 import cookieParser from "cookie-parser";
-import { notFound } from "./middlewere/not-found";
+import { globalErrorHandle } from "./middlware/global-error";
+import { notFound } from "./middlware/not-found";
+import { authRoutes } from "./auth/auth.route";
 
 const app: Application = express()
 
@@ -19,7 +21,24 @@ app.get("/",(req:Request,res:Response)=>{
     res.send("Hello World!")
 })
 
+app.use("/api/auth", authRoutes)
+
+app.use(globalErrorHandle)
 app.use(notFound)
 
 
 export default app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export default app;
