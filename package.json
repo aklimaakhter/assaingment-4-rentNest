@@ -6,12 +6,11 @@
   "author": "",
   "type": "module",
   "main": "server.ts",
-  
   "scripts": {
     "seed": "tsx ./prisma/seed.ts",
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate && tsc",
-    "vercel-build": "prisma generate && tsc",
+    "build": "prisma generate && tsup",
+    "vercel-build": "prisma generate && tsup",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,7 +28,8 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
     "stripe": "^22.3.2",
-    "undici-types": "^8.3.0"
+    "undici-types": "^8.3.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
