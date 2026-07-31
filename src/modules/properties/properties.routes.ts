@@ -5,8 +5,6 @@ import { propertyController } from "./properties.controller";
 
 const router = Router();
 
-
-
 router.post(
   "/landlord/properties",
   auth(UserRole.LANDLORD),

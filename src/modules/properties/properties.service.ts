@@ -11,7 +11,7 @@ const createPropertyIntoDB = async (landlordId: string, payload: any) => {
   return result;
 };
 
-// Get All Properties 
+
 const getAllPropertiesFromDB = async (query: Record<string, any>) => {
   const { location, minPrice, maxPrice, categoryId } = query;
 
@@ -49,7 +49,7 @@ const getAllPropertiesFromDB = async (query: Record<string, any>) => {
   return result;
 };
 
-// Get Single Property by ID 
+
 const getPropertyByIdFromDB = async (id: string) => {
   const result = await prisma.property.findUniqueOrThrow({
     where: { id },
@@ -63,7 +63,7 @@ const getPropertyByIdFromDB = async (id: string) => {
   return result;
 };
 
-// Update Property (Landlord)
+
 const updatePropertyInDB = async (id: string, landlordId: string, payload: any) => {
   
   const property = await prisma.property.findUniqueOrThrow({ where: { id } });
@@ -81,7 +81,7 @@ const updatePropertyInDB = async (id: string, landlordId: string, payload: any) 
   return result;
 };
 
-// Delete Property (Landlord)
+
 const deletePropertyFromDB = async (id: string, landlordId: string) => {
 
   const property = await prisma.property.findUniqueOrThrow({ where: { id } });

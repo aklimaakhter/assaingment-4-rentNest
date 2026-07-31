@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { sendResponse } from "../../utils/sendResponse";
 import { catchAsync } from "../../utils/cashAsync";
-import { categoryService } from "./categorie.service";
+import { categoryService } from "./category.service";
 
 
 const createCategory = catchAsync(async (req: Request, res: Response) => {

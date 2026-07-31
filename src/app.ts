@@ -4,11 +4,11 @@ import config from "./config";
 import cookieParser from "cookie-parser";
 import { globalErrorHandle } from "./middleware/global-error";
 import { authRoutes } from "./modules/auth/auth.route";
-import { categoryRoutes } from "./modules/categories/categorie.routes";
+import { categoryRoutes } from "./modules/categories/category.routes";
 import { propertyRoutes } from "./modules/properties/properties.routes";
 import { notFound } from "./middleware/not-found";
 import { rentalRoutes } from "./modules/rentalRequest/rental.routes";
-import { reviewRoutes } from "./modules/reviwes/review.routes";
+import { reviewRoutes } from "./modules/reviews/review.routes";
 import { adminRoutes } from "./modules/admin/admin.routes";
 
 const app: Application = express()

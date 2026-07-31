@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import { IUpdateUserStatusPayload } from "./admin.interface";
 
-// 1. Get all users
+
 const getAllUsersFromDB = async () => {
   const result = await prisma.user.findMany({
     select: {
@@ -17,7 +17,7 @@ const getAllUsersFromDB = async () => {
   return result;
 };
 
-// 2. Update user status (ban/unban)
+
 const updateUserStatusInDB = async (
   userId: string,
   payload: IUpdateUserStatusPayload
@@ -38,7 +38,7 @@ const updateUserStatusInDB = async (
   return result;
 };
 
-// 3. Get all properties (Admin view)
+
 const getAllPropertiesForAdminFromDB = async () => {
   const result = await prisma.property.findMany({
     include: {
@@ -51,7 +51,7 @@ const getAllPropertiesForAdminFromDB = async () => {
   return result;
 };
 
-// 4. Get all rental requests (Admin view)
+
 const getAllRentalsForAdminFromDB = async () => {
   const result = await prisma.rentalRequest.findMany({
     include: {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/cashAsync";
-import { authService } from "./auth.servic";
+import { authService } from "./auth.service";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status"
 
@@ -81,7 +81,7 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: " User profile retirved successfully",
+        message: " User profile retrieved successfully",
         data: profile
     })
 })
