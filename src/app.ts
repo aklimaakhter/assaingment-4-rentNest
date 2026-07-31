@@ -2,8 +2,8 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors"
 import config from "./config";
 import cookieParser from "cookie-parser";
-import { globalErrorHandle } from "./middlware/global-error";
-import { notFound } from "./middlware/not-found";
+import { globalErrorHandle } from "./middleware/global-error";
+import { notFound } from "./middleware/not-found";
 import { authRoutes } from "./auth/auth.route";
 
 const app: Application = express()

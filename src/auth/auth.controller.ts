@@ -46,7 +46,25 @@ const loginUser = catchAsync(async (req: Request, res: Response, next: NextFunct
     })
 
 })
+
+const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+
+    if (!userId) {
+        throw new Error("Unauthorized! User ID not found in request.");
+    }
+    
+    const profile = await authService.getMyProfileIntoDB(userId);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: " User profile retirved successfully",
+        data: profile
+    })
+})
 export const authController={
     registerUser,
-    loginUser
+    loginUser,
+    getMyProfile
 }
