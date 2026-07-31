@@ -43,8 +43,9 @@ const getPropertyById = catchAsync(async (req: Request, res: Response) => {
 
 const updateProperty = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const landlordId = (req as any).user?.id as string;
-  const result = await propertyService.updatePropertyInDB(id as string, landlordId, req.body);
+  const landlordId = req.user?.id as string;
+  const payload=req.body;
+  const result = await propertyService.updatePropertyInDB(id as string, landlordId, payload);
 
   sendResponse(res, {
     success: true,
@@ -57,13 +58,13 @@ const updateProperty = catchAsync(async (req: Request, res: Response) => {
 const deleteProperty = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const landlordId = (req as any).user?.id as string;
-  const result = await propertyService.deletePropertyFromDB(id as string, landlordId);
+   await propertyService.deletePropertyFromDB(id as string, landlordId);
 
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
     message: "Property deleted successfully",
-    data: result,
+    data: null
   });
 });
 

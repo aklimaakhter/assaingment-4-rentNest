@@ -13,13 +13,8 @@ router.post(
   propertyController.createProperty
 );
 
-
-
 router.get("/properties", propertyController.getAllProperties);
 router.get("/properties/:id", propertyController.getPropertyById);
-
-
-
 
 router.put(
   "/landlord/properties/:id",

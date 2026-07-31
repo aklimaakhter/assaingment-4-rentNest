@@ -65,7 +65,7 @@ const getPropertyByIdFromDB = async (id: string) => {
 
 // Update Property (Landlord)
 const updatePropertyInDB = async (id: string, landlordId: string, payload: any) => {
-  // 1. Check if property exists and belongs to the landlord
+  
   const property = await prisma.property.findUniqueOrThrow({ where: { id } });
   
   if (property.landlordId !== landlordId) {
@@ -83,7 +83,7 @@ const updatePropertyInDB = async (id: string, landlordId: string, payload: any) 
 
 // Delete Property (Landlord)
 const deletePropertyFromDB = async (id: string, landlordId: string) => {
-  // 1. Check if property exists and belongs to the landlord
+
   const property = await prisma.property.findUniqueOrThrow({ where: { id } });
   
   if (property.landlordId !== landlordId) {
@@ -91,11 +91,11 @@ const deletePropertyFromDB = async (id: string, landlordId: string) => {
   }
 
  
-  const result = await prisma.property.delete({
+  await prisma.property.delete({
     where: { id },
   });
 
-  return result;
+  
 };
 
 export const propertyService = {
