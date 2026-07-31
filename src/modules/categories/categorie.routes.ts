@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { categoryController } from "./categorie.controller";
+import { auth } from "../../middleware/auth";
+import { UserRole } from "../../../generated/prisma/enums";
+
+const router = Router();
+
+
+router.post("/", auth(UserRole.ADMIN), categoryController.createCategory);
+router.get("/", categoryController.getAllCategories);
+
+export const categoryRoutes = router;

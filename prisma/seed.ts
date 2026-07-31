@@ -55,8 +55,8 @@ async function main() {
     }),
     prisma.user.create({
       data: {
-        name: "Admin User",
-        email: "admin@example.com",
+        name: "Admin",
+        email: "admin@gmail.com",
         password,
         role: UserRole.ADMIN,
         status: UserStatus.ACTIVE,

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { catchAsync } from "../utils/cashAsync";
+import { catchAsync } from "../../utils/cashAsync";
 import { authService } from "./auth.servic";
-import { sendResponse } from "../utils/sendResponse";
+import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status"
 
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -47,6 +47,28 @@ const loginUser = catchAsync(async (req: Request, res: Response, next: NextFunct
 
 })
 
+const refreshToken = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const refreshToken = req.cookies.refreshToken;
+    const { accessToken } = await authService.refreshToken(refreshToken);
+
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24
+    })
+
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Token refresh successfully",
+        data: {
+            accessToken
+        }
+    })
+})
+
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user?.id;
 
@@ -66,5 +88,6 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
 export const authController={
     registerUser,
     loginUser,
-    getMyProfile
+    getMyProfile,
+    refreshToken
 }
