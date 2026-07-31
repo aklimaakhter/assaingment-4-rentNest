@@ -7,6 +7,7 @@ import { authRoutes } from "./modules/auth/auth.route";
 import { categoryRoutes } from "./modules/categories/categorie.routes";
 import { propertyRoutes } from "./modules/properties/properties.routes";
 import { notFound } from "./middleware/not-found";
+import { rentalRoutes } from "./modules/rentalRequest/rental.routes";
 
 
 
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api", propertyRoutes);
+app.use("/api", rentalRoutes);
 
 
 app.use(notFound)
