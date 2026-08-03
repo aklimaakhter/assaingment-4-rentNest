@@ -1,26 +1,9 @@
-// {
-//   "compilerOptions": {
-//     "target": "ES2022",
-//     "module": "ESNext",
-//     "moduleResolution": "bundler",
-//     "rootDir": "./src",
-//     "outDir": "./dist",
-//     "esModuleInterop": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "strict": true,
-//     "skipLibCheck": true,
-//     "allowSyntheticDefaultImports": true,
-//     "types": ["node"]
-//   },
-//   "exclude": ["node_modules", "dist"]
-// }
-
-
 {
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "rootDir": "./",
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -29,6 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node"]
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
+
+
+
