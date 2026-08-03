@@ -31,7 +31,6 @@ const createRentalRequestIntoDB = async (
   return result;
 };
 
-
 const getMyRentalRequestsFromDB = async (tenantId: string) => {
   const result = await prisma.rentalRequest.findMany({
     where: {
@@ -50,7 +49,6 @@ const getMyRentalRequestsFromDB = async (tenantId: string) => {
 
   return result;
 };
-
 
 const getRentalRequestByIdFromDB = async (id: string, userId: string) => {
   const result = await prisma.rentalRequest.findUniqueOrThrow({
@@ -77,7 +75,6 @@ const getRentalRequestByIdFromDB = async (id: string, userId: string) => {
   return result;
 };
 
-
 const getLandlordRentalRequestsFromDB = async (landlordId: string) => {
   const result = await prisma.rentalRequest.findMany({
     where: {
@@ -96,7 +93,6 @@ const getLandlordRentalRequestsFromDB = async (landlordId: string) => {
   return result;
 };
 
-
 const updateRentalRequestStatusInDB = async (
   id: string,
   landlordId: string,
@@ -106,7 +102,6 @@ const updateRentalRequestStatusInDB = async (
     where: { id },
     include: { property: true },
   });
-
 
   if (rentalRequest.property.landlordId !== landlordId) {
     throw new Error("Unauthorized! You can only update requests for your own properties.");

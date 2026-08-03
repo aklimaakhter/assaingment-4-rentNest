@@ -15,11 +15,11 @@ const createReviewIntoDB = async (
     },
   });
 
-  if (!completedRental) {
-    throw new Error(
-      "You can only leave a review after completing a rental for this property!"
-    );
-  }
+  // if (!completedRental) {
+  //   throw new Error(
+  //     "You can only leave a review after completing a rental for this property!"
+  //   );
+  // }
 
   
   const result = await prisma.review.create({

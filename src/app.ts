@@ -10,6 +10,7 @@ import { notFound } from "./middleware/not-found";
 import { rentalRoutes } from "./modules/rentalRequest/rental.routes";
 import { reviewRoutes } from "./modules/reviews/review.routes";
 import { adminRoutes } from "./modules/admin/admin.routes";
+import { paymentRoutes } from "./modules/payment/payment.routes";
 
 const app: Application = express()
 
@@ -29,13 +30,16 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api", propertyRoutes);
-app.use("/api", rentalRoutes);
-app.use("/api", reviewRoutes);
+app.use("/api/rentals", rentalRoutes);
+app.use("/api/reviews", reviewRoutes);
 app.use("/api", adminRoutes);
+app.use("/api/payments", paymentRoutes);
 
 
 app.use(notFound)
 app.use(globalErrorHandle)
+
+
 
 
 export default app;
