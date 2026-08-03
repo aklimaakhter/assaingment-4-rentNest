@@ -6,7 +6,7 @@ import { auth } from "../../middleware/auth";
 const router = Router();
 
 
-router.post("/checkout", auth(UserRole.TENANT), paymentController.createPayment);
+router.post("/create", auth(UserRole.TENANT), paymentController.createPayment);
 
 
 router.post("/confirm", paymentController.confirmPayment);

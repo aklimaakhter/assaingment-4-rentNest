@@ -22,7 +22,6 @@ const createPaymentSessionIntoDB = async (tenantId: string, rentalRequestId: str
     throw new Error("Approved rental request not found or unauthorized!");
   }
 
-
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
@@ -46,7 +45,6 @@ const createPaymentSessionIntoDB = async (tenantId: string, rentalRequestId: str
     },
   });
 
-
   await prisma.payment.upsert({
     where: { rentalRequestId: rental.id },
     update: {
@@ -66,7 +64,6 @@ const createPaymentSessionIntoDB = async (tenantId: string, rentalRequestId: str
 
   return { checkoutUrl: session.url };
 };
-
 
 const confirmPaymentInDB = async (sessionId: string) => {
   const session = await stripe.checkout.sessions.retrieve(sessionId);
@@ -98,7 +95,6 @@ const confirmPaymentInDB = async (sessionId: string) => {
   }
 };
 
-
 const getMyPaymentsFromDB = async (tenantId: string) => {
   return await prisma.payment.findMany({
     where: {
@@ -118,7 +114,6 @@ const getMyPaymentsFromDB = async (tenantId: string) => {
     },
   });
 };
-
 
 const getPaymentByIdFromDB = async (paymentId: string) => {
   const payment = await prisma.payment.findUnique({
