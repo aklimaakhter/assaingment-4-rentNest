@@ -3,12 +3,15 @@ import httpStatus from "http-status";
 import { sendResponse } from "../../utils/sendResponse";
 import { catchAsync } from "../../utils/cashAsync";
 import { rentalService } from "./rental.service";
+import { createRentalRequestSchema, updateRentalStatusSchema } from "./rental.validation";
 
 
 const createRentalRequest = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
-  const payload=req.body;
-  const result = await rentalService.createRentalRequestIntoDB(user.id, payload);
+  const validatedBody = createRentalRequestSchema.parse(req.body);
+
+  const result = await rentalService.createRentalRequestIntoDB(user, validatedBody);
+  
 
   sendResponse(res, {
     success: true,
@@ -58,7 +61,9 @@ const getLandlordRentalRequests = catchAsync(async (req: Request, res: Response)
 const updateRentalRequestStatus = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const user = (req as any).user;
-  const result = await rentalService.updateRentalRequestStatusInDB(id as string, user.id, req.body);
+  const validatedBody = updateRentalStatusSchema.parse(req.body);
+
+  const result = await rentalService.updateRentalRequestStatusIntoDB(id as string, user.id, validatedBody);
 
   sendResponse(res, {
     success: true,

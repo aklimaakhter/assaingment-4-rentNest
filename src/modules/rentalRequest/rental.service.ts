@@ -93,7 +93,7 @@ const getLandlordRentalRequestsFromDB = async (landlordId: string) => {
   return result;
 };
 
-const updateRentalRequestStatusInDB = async (
+const updateRentalRequestStatusIntoDB = async (
   id: string,
   landlordId: string,
   payload: IUpdateRentalStatusPayload
@@ -122,5 +122,5 @@ export const rentalService = {
   getMyRentalRequestsFromDB,
   getRentalRequestByIdFromDB,
   getLandlordRentalRequestsFromDB,
-  updateRentalRequestStatusInDB,
+  updateRentalRequestStatusIntoDB,
 };

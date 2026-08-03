@@ -3,12 +3,13 @@ import httpStatus from "http-status"
 import { paymentService } from "./payment.service";
 import { catchAsync } from "../../utils/cashAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import { createPaymentSchema } from "./payment.validation";
 
 const createPayment = catchAsync(async (req: Request, res: Response) => {
     const user = (req as any).user;
-    const { rentalRequestId } = req.body;
+    const validatedBody = createPaymentSchema.parse(req.body);
 
-    const result = await paymentService.createPaymentSessionIntoDB(user.id, rentalRequestId);
+  const result = await paymentService.createPaymentSessionIntoDB(user.id as string,validatedBody.rentalRequestId);
 
 
     sendResponse(res, {

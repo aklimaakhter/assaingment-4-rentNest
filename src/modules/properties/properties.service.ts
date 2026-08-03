@@ -64,7 +64,7 @@ const getPropertyByIdFromDB = async (id: string) => {
 };
 
 
-const updatePropertyInDB = async (id: string, landlordId: string, payload: any) => {
+const updatePropertyIntoDB = async (id: string, landlordId: string, payload: any) => {
   
   const property = await prisma.property.findUniqueOrThrow({ where: { id } });
   
@@ -102,6 +102,6 @@ export const propertyService = {
   createPropertyIntoDB,
   getAllPropertiesFromDB,
   getPropertyByIdFromDB,
-  updatePropertyInDB,
+  updatePropertyIntoDB,
   deletePropertyFromDB,
 };

@@ -3,12 +3,14 @@ import httpStatus from "http-status";
 import { sendResponse } from "../../utils/sendResponse";
 import { catchAsync } from "../../utils/cashAsync";
 import { propertyService } from "./properties.service";
+import { createPropertySchema, updatePropertySchema } from "./property.validation";
 
 
 const createProperty = catchAsync(async (req: Request, res: Response) => {
   const landlordId = req.user?.id as string;
-  const payload= req.body;
-  const result = await propertyService.createPropertyIntoDB(landlordId, payload);
+  const validatedBody = createPropertySchema.parse(req.body);
+
+  const result = await propertyService.createPropertyIntoDB( landlordId,validatedBody);
 
   sendResponse(res, {
     success: true,
@@ -44,8 +46,9 @@ const getPropertyById = catchAsync(async (req: Request, res: Response) => {
 const updateProperty = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const landlordId = req.user?.id as string;
-  const payload=req.body;
-  const result = await propertyService.updatePropertyInDB(id as string, landlordId, payload);
+  const validatedBody = updatePropertySchema.parse(req.body);
+
+  const result = await propertyService.updatePropertyIntoDB(id as string,landlordId, validatedBody);
 
   sendResponse(res, {
     success: true,

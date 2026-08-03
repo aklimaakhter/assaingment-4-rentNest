@@ -3,10 +3,11 @@ import { catchAsync } from "../../utils/cashAsync";
 import { authService } from "./auth.service";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status"
+import { loginSchema, registerSchema } from "./auth.validation";
 
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const payload = req.body;
-    const user = await authService.userRegisterIntoDB(payload)
+    const validatedBody = registerSchema.parse(req.body);
+    const user = await authService.userRegisterIntoDB(validatedBody)
 
     sendResponse(res, {
         success: true,
@@ -20,9 +21,9 @@ const registerUser = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const loginUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     
-    const payload = req.body;
+   const validatedBody = loginSchema.parse(req.body);
 
-    const { accessToken, refreshToken} = await authService.loginUserIntoDB(payload)
+    const { accessToken, refreshToken} = await authService.loginUserIntoDB(validatedBody)
 
     res.cookie("accessToken", accessToken, {
         httpOnly: true,
