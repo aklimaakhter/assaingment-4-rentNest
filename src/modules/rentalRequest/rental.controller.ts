@@ -10,7 +10,7 @@ const createRentalRequest = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const validatedBody = createRentalRequestSchema.parse(req.body);
 
-  const result = await rentalService.createRentalRequestIntoDB(user, validatedBody);
+  const result = await rentalService.createRentalRequestIntoDB(user.id, validatedBody);
   
 
   sendResponse(res, {
